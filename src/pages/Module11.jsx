@@ -92,13 +92,16 @@ function simulate(gates, wires, inputSources) {
 
   // Topological sort and evaluate
   const evaluated = new Set()
+  const inProgress = new Set() // cycle detection
   const gateValues = {}
 
   function evalGate(gateId) {
     if (evaluated.has(gateId)) return gateValues[gateId]
+    if (inProgress.has(gateId)) return { inputs: [0, 0], output: 0 } // break cycle
 
+    inProgress.add(gateId)
     const gate = gates.find(g => g.id === gateId)
-    if (!gate) return { inputs: [0, 0], output: 0 }
+    if (!gate) { inProgress.delete(gateId); return { inputs: [0, 0], output: 0 } }
 
     const def = GATE_TYPES[gate.type]
     const inputs = []
@@ -121,6 +124,7 @@ function simulate(gates, wires, inputSources) {
     const result = { inputs, output }
     gateValues[gateId] = result
     evaluated.add(gateId)
+    inProgress.delete(gateId)
     return result
   }
 
