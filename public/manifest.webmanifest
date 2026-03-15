@@ -1,0 +1,19 @@
+{
+  "name": "DLD Project",
+  "short_name": "DLD",
+  "description": "Digital Logic Learning Simulator with interactive modules and 3D visualizations.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#020617",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
