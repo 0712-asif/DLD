@@ -31,11 +31,12 @@ jobs:
       - name: Build web assets
         run: npm run build
 
-      - name: Install Capacitor CLI globally
-        run: npm install -g @capacitor/cli
-
-      - name: Sync Capacitor Android
-        run: npx cap sync android
+      - name: Copy web assets into Android app
+        run: |
+          rm -rf android/app/src/main/assets/public
+          mkdir -p android/app/src/main/assets/public
+          cp -r dist/. android/app/src/main/assets/public/
+          cp capacitor.config.json android/app/src/main/assets/capacitor.config.json
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x android/gradlew
